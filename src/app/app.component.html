@@ -1,20 +1,206 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{title}}!
+    Starfinder Character Creator
   </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
+  <md-sidenav-container class="main">
+    <md-sidenav #sidenav mode="over">
+      <md-list>
+        <md-list-item>
+          <a href="#races">
+            <button md-button (click)="sidenav.close()">Races</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a href="#themes">
+            <button md-button (click)="sidenav.close()">Themes</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a href="#classes">
+            <button md-button (click)="sidenav.close()">Classes</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a href="#attributes">
+            <button md-button (click)="sidenav.close()">Attributes</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a href="#skills">
+            <button md-button (click)="sidenav.close()">Skills</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <a href="#summary">
+            <button md-button (click)="sidenav.close()">Summary</button>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <button md-button (click)="sidenav.toggle()">Close</button>
+        </md-list-item>
+      </md-list>
+    </md-sidenav>
+    <md-card class="main-content">
+      <md-card class="races">
+        <md-card-title><a name="races">Races</a></md-card-title>
+        <md-card-content>
+          <table>
+            <tr>
+              <th>Race</th>
+              <th>Attributes</th>
+              <th>HP</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let race of raceKeys">
+              <td>{{ races[race].name }}</td>
+              <td>{{ displayRaceAttributes(races[race]) }}</td>
+              <td>{{ races[race].hp }}</td>
+              <td>
+                <button
+                  md-button
+                  [disabled]="_race && _race.name === races[race].name"
+                  (click)="selectRace(races[race])"
+                >Select</button>
+              </td>
+            </tr>
+          </table>
+        </md-card-content>
+      </md-card>
+      <md-card class="themes">
+        <md-card-title><a name="themes">Themes</a></md-card-title>
+        <md-card-content>
+          <table>
+            <tr>
+              <th>Theme</th>
+              <th>Attribute</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let theme of themeKeys">
+              <td>{{ themes[theme].name }}</td>
+              <td>{{ themes[theme].attribute.name }}+1</td>
+              <td>
+                <button
+                  md-button
+                  [disabled]="_theme && _theme.name === themes[theme].name"
+                  (click)="selectTheme(themes[theme])"
+                >Select</button>
+              </td>
+            </tr>
+          </table>
+        </md-card-content>
+      </md-card>
+      <md-card class="classes">
+        <md-card-title><a name="classes">Classes</a></md-card-title>
+        <md-card-content>
+          <table>
+            <tr>
+              <th>Class</th>
+              <th>Skills</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let thisClass of classKeys">
+              <td>{{ classes[thisClass].name }}</td>
+              <td>{{ displayClassSkills(classes[thisClass]) }}</td>
+              <td>
+                <button
+                  md-button
+                  [disabled]="_class && _class.name === classes[thisClass].name"
+                  (click)="selectClass(classes[thisClass])"
+                >Select</button>
+              </td>
+            </tr>
+          </table>
+        </md-card-content>
+      </md-card>
+      <md-card class="attributes">
+        <md-card-title><a name="attributes">Attributes</a></md-card-title>
+        <md-card-content>
+          <div>Point Buy Pool Remaining: {{ pointBuyPool.remaining() }}</div>
+          <table>
+            <tr>
+              <th>Attribute</th>
+              <th>Raw</th>
+              <th>Mod</th>
+              <th>Modify</th>
+              <th>Point Buy</th>
+            </tr>
+            <tr *ngFor="let attr of attributeKeys">
+              <td>{{ attributes[attr].name }}</td>
+              <td>{{ attributes[attr].raw }}</td>
+              <td>{{ attributes[attr].mod }}</td>
+              <td>
+                <button md-button [disabled]="!pointBuyPool.remaining() || attributes[attr].raw >= 18" (click)="pointBuyPool.spend(attributes[attr])" >++</button>
+                <button md-button [disabled]="attributes[attr].raw <= _ATTRIBUTE_MINIMUM" (click)="pointBuyPool.refund(attributes[attr])" >--</button>
+              </td>
+              <td>{{ pointBuyPool[attr] }}</td>
+            </tr>
+          </table>
+        </md-card-content>
+      </md-card>
+      <md-card class="skills">
+        <md-card-title><a name="skills">Skills</a></md-card-title>
+        <md-card-content>
+          <div>Skill Ranks Remaining: {{ ranksRemaining() }}</div>
+          <table>
+            <tr>
+              <th>Skill</th>
+              <th>Class Skill</th>
+              <th>Total</th>
+              <th>Attribute</th>
+              <th>Mod</th>
+              <th>Ranks</th>
+              <th>Misc</th>
+              <th>Modify</th>
+            </tr>
+            <tr *ngFor="let skill of skillKeys">
+              <td>{{ skills[skill].name }}
+                <span *ngIf="skills[skill].hasPenalty">&#42;</span>
+                <span *ngIf="skills[skill].requiresTraining">&#877;</span>
+              </td>
+              <td>{{ skills[skill].classSkill ? '&#10003;' : '&#10007;' }}</td>
+              <td>{{ skills[skill].total }}</td>
+              <td>{{ skills[skill].attribute.name }}</td>
+              <td>{{ skills[skill].attribute.mod }}</td>
+              <td>{{ skills[skill].ranks }}</td>
+              <td>{{ skills[skill].misc }}</td>
+              <td>
+                <button md-button [disabled]="!ranksRemaining()" (click)="skills[skill].addRanks()">++</button>
+                <button md-button [disabled]="skills[skill].ranks <= 0" (click)="skills[skill].subtractRanks()">--</button>
+              </td>
+            </tr>
+          </table>
+          <div>
+            <div>&#42; Has Armor Penalty</div>
+            <div>&#877; Requires Training</div>
+          </div>
+        </md-card-content>
+      </md-card>
+      <md-card class="characterSummary">
+        <md-card-title><a name="summary">Character Summary</a></md-card-title>
+        <md-card-content>
+          <table>
+            <tr>
+              <th>Stamina</th>
+              <th>HP</th>
+              <th>Resolve</th>
+              <th>BAB</th>
+              <th>Fortitude</th>
+              <th>Reflex</th>
+              <th>Will</th>
+            </tr>
+            <tr *ngIf="this._class">
+              <td>{{ _class.stamina + attributes.CON.mod }}</td>
+              <td>{{ _class.hp + _class.hp + attributes.CON.mod }}</td>
+              <td>{{ displayResolve() }}</td>
+              <td>{{ displayBAB() }}</td>
+              <td>{{ displayFortitude() }}</td>
+              <td>{{ displayReflex() }}</td>
+              <td>{{ displayWill() }}</td>
+            </tr>
+          </table>
+        </md-card-content>
+      </md-card>
+    </md-card>
+  </md-sidenav-container>
+  <button class="menu-toggle" md-button (click)="sidenav.toggle()">Menu</button>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io//">Angular blog</a></h2>
-  </li>
-</ul>
-

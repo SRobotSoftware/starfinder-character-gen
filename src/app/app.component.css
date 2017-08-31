@@ -1,0 +1,24 @@
+.main {
+  height: 80vh;
+  position: relative !important;
+}
+
+.menu-toggle {
+  position: absolute !important;
+  right: 20px;
+  bottom: 10px;
+  z-index: 1;
+}
+
+.main-content {
+  overflow-y: scroll;
+  position: absolute !important;
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(173, 216, 230, 0.25);
+}
+
+button:disabled {
+  background-color: rgba(240, 128, 128, 0.25);
+}

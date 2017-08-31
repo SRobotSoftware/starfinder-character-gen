@@ -41,7 +41,7 @@
       </md-list>
     </md-sidenav>
     <md-card class="main-content">
-      <md-card class="races">
+      <md-card class="races" [ngClass]="{complete: _race}">
         <md-card-title><a name="races">Races</a></md-card-title>
         <md-card-content>
           <table>
@@ -66,7 +66,7 @@
           </table>
         </md-card-content>
       </md-card>
-      <md-card class="themes">
+      <md-card class="themes" [ngClass]="{complete: _theme}">
         <md-card-title><a name="themes">Themes</a></md-card-title>
         <md-card-content>
           <table>
@@ -89,7 +89,7 @@
           </table>
         </md-card-content>
       </md-card>
-      <md-card class="classes">
+      <md-card class="classes" [ngClass]="{complete: _class}">
         <md-card-title><a name="classes">Classes</a></md-card-title>
         <md-card-content>
           <table>
@@ -112,7 +112,7 @@
           </table>
         </md-card-content>
       </md-card>
-      <md-card class="attributes">
+      <md-card class="attributes" [ngClass]="{complete: pointBuyPool.remaining() === 0}">
         <md-card-title><a name="attributes">Attributes</a></md-card-title>
         <md-card-content>
           <div>Point Buy Pool Remaining: {{ pointBuyPool.remaining() }}</div>
@@ -137,7 +137,7 @@
           </table>
         </md-card-content>
       </md-card>
-      <md-card class="skills">
+      <md-card class="skills" [ngClass]="{complete: ranksRemaining() === 0}">
         <md-card-title><a name="skills">Skills</a></md-card-title>
         <md-card-content>
           <div>Skill Ranks Remaining: {{ ranksRemaining() }}</div>
@@ -164,7 +164,7 @@
               <td>{{ skills[skill].ranks }}</td>
               <td>{{ skills[skill].misc }}</td>
               <td>
-                <button md-button [disabled]="!ranksRemaining()" (click)="skills[skill].addRanks()">++</button>
+                <button md-button [disabled]="!ranksRemaining() || skills[skill].ranks >= _level" (click)="skills[skill].addRanks()">++</button>
                 <button md-button [disabled]="skills[skill].ranks <= 0" (click)="skills[skill].subtractRanks()">--</button>
               </td>
             </tr>
@@ -175,7 +175,7 @@
           </div>
         </md-card-content>
       </md-card>
-      <md-card class="characterSummary">
+      <md-card class="characterSummary" [ngClass]="{complete: _race && _theme && _class && pointBuyPool.remaining() === 0 && ranksRemaining() === 0}">
         <md-card-title><a name="summary">Character Summary</a></md-card-title>
         <md-card-content>
           <table>

@@ -14,6 +14,7 @@ export class AppComponent {
   _race;
   _theme;
   _class;
+  _level = 1;
   _ATTRIBUTE_MINIMUM =  8;
   attributes = {
     STR: new Attribute('STR'),
@@ -360,19 +361,19 @@ export class AppComponent {
   }
 
   displayBAB(): number {
-    return this._class.bab[0];
+    return this._class.bab[this._level - 1];
   }
 
   displayFortitude(): number {
-    return this._class.saves.fortitude[0];
+    return this._class.saves.fortitude[this._level - 1];
   }
 
   displayReflex(): number {
-    return this._class.saves.reflex[0];
+    return this._class.saves.reflex[this._level - 1];
   }
 
   displayWill(): number {
-    return this._class.saves.will[0];
+    return this._class.saves.will[this._level - 1];
   }
 
   resetAttributes(): void {

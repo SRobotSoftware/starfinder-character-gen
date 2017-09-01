@@ -137,7 +137,7 @@
           </table>
         </md-card-content>
       </md-card>
-      <md-card class="skills" [ngClass]="{complete: ranksRemaining() === 0}">
+      <md-card class="skills" [ngClass]="{complete: _class && ranksRemaining() === 0}">
         <md-card-title><a name="skills">Skills</a></md-card-title>
         <md-card-content>
           <div>Skill Ranks Remaining: {{ ranksRemaining() }}</div>
@@ -178,7 +178,7 @@
       <md-card class="characterSummary" [ngClass]="{complete: _race && _theme && _class && pointBuyPool.remaining() === 0 && ranksRemaining() === 0}">
         <md-card-title><a name="summary">Character Summary</a></md-card-title>
         <md-card-content>
-          <table>
+          <table *ngIf="this._class">
             <tr>
               <th>Stamina</th>
               <th>HP</th>
@@ -188,7 +188,7 @@
               <th>Reflex</th>
               <th>Will</th>
             </tr>
-            <tr *ngIf="this._class">
+            <tr>
               <td>{{ _class.stamina + attributes.CON.mod }}</td>
               <td>{{ _class.hp + _class.hp + attributes.CON.mod }}</td>
               <td>{{ displayResolve() }}</td>
